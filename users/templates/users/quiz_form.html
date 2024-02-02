@@ -1,0 +1,68 @@
+{% extends "DiscussionBoard/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h2>Create a Quiz</h2>
+  <form method="post">
+    {% csrf_token %}
+    
+    {{ quiz_form|crispy }}  {# Renders the main quiz form fields #}
+    
+    <h3>Questions:</h3>
+    {{ mcquestion_formset.management_form|crispy }}  {# Renders the management form for the MC questions formset #}
+    
+    {% for question_form in mcquestion_formset %}
+    <div class="question-formset">
+      {{ question_form.text.label_tag }} {{ question_form.text }}
+  
+      {{ choice_formset.management_form|crispy }}  {# Renders the management form for the nested choice formset #}
+      {% for choice_form in choice_formset %}
+        {% if forloop.parentloop.counter == forloop.counter0 %}
+          <div>
+            <label for="{{ question_form.prefix }}-choice_text_{{ forloop.counter0 }}">Answer Choice A:</label>
+            <input type="text" name="{{ question_form.prefix }}-choice_text_{{ forloop.counter0 }}">
+            {{ choice_form.correct_choice }}
+          </div>
+        {% endif %}
+      {% endfor %}
+      <!-- Add the following lines to create individual input fields for answer choices -->
+      <div>
+        <label for="{{ question_form.prefix }}-choice_text_1">Answer Choice B:</label>
+        <input type="text" name="{{ question_form.prefix }}-choice_text_1">
+      </div>
+      <div>
+        <label for="{{ question_form.prefix }}-choice_text_2">Answer Choice C:</label>
+        <input type="text" name="{{ question_form.prefix }}-choice_text_2">
+      </div>
+      <div>
+        <label for="{{ question_form.prefix }}-choice_text_3">Answer Choice D:</label>
+        <input type="text" name="{{ question_form.prefix }}-choice_text_3">
+      </div>
+    </div>
+    {% endfor %}
+    
+    <button type="submit">Create Quiz</button>
+    <button type="button" id="add-question">Add Another Question</button>
+
+  </form>
+{% endblock %}
+
+<script>
+  // Function to add a new question input field
+  function addQuestion() {
+    // Clone the first question input field and its associated elements
+    const firstQuestion = document.querySelector('.question-formset');
+    const newQuestion = firstQuestion.cloneNode(true);
+
+    // Clear the input field for the new question
+    newQuestion.querySelector('input[type="text"]').value = '';
+
+    // Insert the new question field before the "Add Another Question" button
+    const addButton = document.getElementById('add-question');
+    addButton.parentNode.insertBefore(newQuestion, addButton);
+  }
+
+  // Attach a click event handler to the "Add Another Question" button
+  document.getElementById('add-question').addEventListener('click', addQuestion);
+</script>
+

@@ -1,0 +1,23 @@
+{% extends "DiscussionBoard/base.html" %}
+
+{% block content %}
+
+    <h1>{{ quiz.title }}</h1>
+    <p>{{ quiz.description }}</p>
+
+    {% if quiz.video_url %}
+    <iframe src="{{ quiz.video_url }}" width="560" height="315"></iframe>
+    {% endif %}
+
+    <form method="post" action="{% url 'submit_quiz' quiz.pk %}">
+        {% csrf_token %}
+        {% for question in quiz.questions.all %}
+        <p>{{ question.text }}</p>
+        {% for choice in question.choices.all %}
+            <input type="radio" name="{{ question.pk }}" value="{{ choice.pk }}"> {{ choice.text }}<br>
+        {% endfor %}
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

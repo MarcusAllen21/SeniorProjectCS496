@@ -1,0 +1,60 @@
+{% extends "DiscussionBoard/base.html" %}
+
+{% block content %}
+    <article class="media content-section">
+        <img class = "rounded-circle article-img"src="{{ object.author.profile.image.url }}">
+        <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.author }}</a>
+            <small class="text-muted">{{ object.date_posted|date:"N j, Y g:i" }}</small>
+            {% if object.author == user %}
+            <div>
+                <a class = "btn btn-secondary btn-sm mt-1 mb-1" href="{%url 'question-update' object.id%}">Update</a>
+                <a class = "btn btn-danger btn-sm mt-1 mb-1" href="{%url 'question-delete' object.id%}">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+        <h2 class = "article-title">{{ object.title }}</h2>
+        <p class="article-content">{{ object.content }}</p>
+
+        {% if object.attachments.all %}
+            <h5>Attached Files:</h5>
+            {% for attachment in object.attachments.all %}
+                <a href="{{ attachment.file.url }}" download>{{ attachment.file.name }}</a><br>
+            {% endfor %}
+        {% endif %}
+        
+        </div>
+    </article>
+
+    <h3>Replies:</h3>
+    {% for reply in replies %}
+    <div class="reply">
+        <strong>{{ reply.author.username }}:</strong> {{ reply.content }}
+        <small class="text-muted">{{ reply.date_posted|date:"N j, Y g:i" }}</small>
+
+        {% if reply.attachments.all %}
+            <h6>Attachments:</h6>
+            {% for attachment in reply.attachments.all %}
+                <a href="{{ attachment.file.url }}" download>{{ attachment.file.name }}</a><br>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="reply-form">
+        <h4>Add a reply:</h4>
+        <form action="{% url 'reply-create' object.pk %}" method="post" enctype="multipart/form-data"> <!-- Add the enctype attribute -->
+            {% csrf_token %}
+            <textarea name="content" required rows="5" cols="50" style="width: 100%;"></textarea>
+            <div class="form-group">
+                <label for="files">Attach files:</label>
+                <input type="file" name="files" multiple>
+            </div>
+            <div>
+                <button type="submit">Post Reply</button>
+            </div>
+        </form>
+    </div>
+    
+{% endblock content %}

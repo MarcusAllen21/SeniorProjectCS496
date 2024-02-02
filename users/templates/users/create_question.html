@@ -1,0 +1,13 @@
+{% extends "DiscussionBoard/base.html" %}
+
+{%block content%}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Next">    
+    </form>
+
+    <form action="{% url 'quiz-list' %}" method="get">
+        <input type="submit" value="Finish and Return to Quizzes" class="btn btn-success">
+    </form>
+{% endblock %}

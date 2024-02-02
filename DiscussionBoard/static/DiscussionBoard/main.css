@@ -1,0 +1,87 @@
+/* Dark theme styles */
+
+body {
+  background: #333333; /* Dark background color */
+  color: #fafafa; /* Light text color */
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff; /* Light heading text color */
+}
+
+ul {
+  margin: 0;
+}
+
+.bg-steel {
+  background-color: #4CAF50; /* Dark background color for specific elements */
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db; /* Light navigation text color */
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff; /* Light navigation text color on hover */
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #444444; /* Dark content background color */
+  color: #fafafa; /* Light text color within content section */
+  padding: 10px 20px;
+  border: 1px solid #777777; /* Dark border color */
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #ffffff; /* Light article title color */
+}
+
+a.article-title:hover {
+  color: #428bca; /* Light article title color on hover */
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #777777; /* Dark border color for metadata */
+}
+
+.article-metadata a:hover {
+  color: #fafafa; /* Light text color for metadata links on hover */
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}

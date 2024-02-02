@@ -1,2 +1,0 @@
-# SeniorProjectCS496
-test

@@ -1,0 +1,24 @@
+{% extends "DiscussionBoard/base.html" %}
+
+{% block content %}
+
+    <div class="statistics-bar">
+        <strong>Total Posts: {{ post_count }} </strong>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <strong>Total Visits: {{ visit_count }}</strong>
+    </div>
+    <hr>
+    {% for post in posts %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ post.author }}</a>
+                    <small class="text-muted">{{ post.date_posted|date:"N j, Y g:i" }}</small>
+                </div>
+                <h2><a class="article-title" href="{% url 'question-detail' post.id %}">{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content }}</p>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
+

@@ -1,0 +1,29 @@
+{% extends "DiscussionBoard/base.html" %}
+
+{% block content %}
+<h2>Teacher's Report</h2>
+
+{% for quiz in quizzes %}
+    <h3>{{ quiz.quiz }}</h3>
+    <p>Average Score: {{ quiz.average|floatformat:2 }}</p>
+    <p>Highest Score: {{ quiz.highest }}</p>
+    <p>Lowest Score: {{ quiz.lowest }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in quiz.results %}
+                <tr>
+                    <td>{{ result.student }}</td>
+                    <td>{{ result.score }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+{% endblock %}

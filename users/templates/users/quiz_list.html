@@ -1,0 +1,15 @@
+{% extends "DiscussionBoard/base.html" %}
+
+{% block content %}
+  <h2>Quizzes</h2>
+
+  {% if is_teacher %}
+    <a href="{% url 'create_quiz' %}" class="btn btn-primary">Create New Quiz</a>
+  {% endif %}
+
+  <ul>
+    {% for quiz in quizzes %}
+      <li><a href="{% url 'quiz-detail' quiz.id %}">{{ quiz.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
